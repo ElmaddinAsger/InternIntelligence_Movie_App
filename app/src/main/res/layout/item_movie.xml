@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="2.5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#CC1B2B4D">
+
+        <ImageView
+            android:id="@+id/img_movie_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="80dp"
+            android:minHeight="120dp"
+            android:maxHeight="180dp"
+            android:maxWidth="120dp"
+            tools:background="@color/black"
+            android:layout_margin="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+        <TextView
+            android:id="@+id/txtvw_movie_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Capitan America: The Winter Soldier"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintTop_toTopOf="@id/img_movie_photo"
+            app:layout_constraintStart_toEndOf="@id/img_movie_photo"
+            app:layout_constraintEnd_toEndOf="@id/guideline"
+            app:layout_constraintBottom_toTopOf="@id/txtvw_overview"/>
+
+        <TextView
+            android:id="@+id/txtvw_overview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            tools:text="Action, Adventure"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:layout_marginHorizontal="10dp"
+            android:textColor="#CCFFFFFF"
+            app:layout_constraintTop_toBottomOf="@id/txtvw_movie_name"
+            app:layout_constraintStart_toEndOf="@id/img_movie_photo"
+            app:layout_constraintEnd_toEndOf="@id/guideline"
+            app:layout_constraintBottom_toTopOf="@id/txtvw_vote_average"/>
+
+        <TextView
+            android:id="@+id/txtvw_vote_average"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="2:05:37"
+            android:textColor="#CCFFFFFF"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/img_movie_photo"
+            app:layout_constraintStart_toEndOf="@id/img_movie_photo"/>
+
+
+        <TextView
+            android:id="@+id/txtvw_release_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="1.2GB"
+            android:textColor="#CCFFFFFF"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/img_movie_photo"
+            app:layout_constraintStart_toEndOf="@id/txtvw_vote_average"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.93"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/menu"
+            android:padding="20dp"
+            android:contentDescription="menu"
+            android:background="#00000000"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
