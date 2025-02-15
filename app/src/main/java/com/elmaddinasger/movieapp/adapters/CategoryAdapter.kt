@@ -10,7 +10,11 @@ import com.elmaddinasger.movieapp.CategoryNameSealed
 import com.elmaddinasger.movieapp.databinding.ItemCategoryBinding
 import com.elmaddinasger.movieapp.models.CategoryModel
 
-class CategoryAdapter(val context: Context,val seeAll: (categoryId: Int) -> Unit): RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter(
+    val context: Context,
+    val seeAll: (categoryId: Int) -> Unit,
+    val clickedMovie: (movieId: Int) -> Unit
+): RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
     private val diffUtil = object : DiffUtil.ItemCallback<CategoryModel>() {
         override fun areItemsTheSame(oldItem: CategoryModel, newItem: CategoryModel): Boolean {
             return oldItem.id == newItem.id
@@ -49,7 +53,9 @@ class CategoryAdapter(val context: Context,val seeAll: (categoryId: Int) -> Unit
             binding.apply {
                 txtvwSeeAll.text = "See all"
                 txtvwCoverName.text = stringResId?.let { context.getString(it) } ?: ""
-                val moviePosterAdapter = MoviePosterAdapter()
+                val moviePosterAdapter = MoviePosterAdapter{ movieId->
+                    clickedMovie(movieId)
+                }
                 moviePosterAdapter.setMovieList(currentCategory.movieList)
                 rvMovies.adapter = moviePosterAdapter
             }

@@ -9,7 +9,9 @@ import com.bumptech.glide.Glide
 import com.elmaddinasger.movieapp.databinding.ItemMoviePosterBinding
 import com.elmaddinasger.movieapp.models.MovieModel
 
-class MoviePosterAdapter: RecyclerView.Adapter<MoviePosterAdapter.CoverMovieViewHolder>() {
+class MoviePosterAdapter(
+    val clickedMovie: (movieId: Int) -> Unit
+): RecyclerView.Adapter<MoviePosterAdapter.CoverMovieViewHolder>() {
 
     private val diffUtil = object : DiffUtil.ItemCallback<MovieModel>() {
         override fun areItemsTheSame(oldItem: MovieModel, newItem: MovieModel): Boolean {
@@ -43,6 +45,13 @@ class MoviePosterAdapter: RecyclerView.Adapter<MoviePosterAdapter.CoverMovieView
     }
 
     inner class CoverMovieViewHolder(private val binding: ItemMoviePosterBinding): RecyclerView.ViewHolder(binding.root){
+
+        init {
+            binding.imgbtnMovie.setOnClickListener {
+                clickedMovie(asyncListDiffer.currentList[bindingAdapterPosition].movieId)
+            }
+        }
+
         fun bind(currentMovie: MovieModel){
             Glide.with(binding.root.context)
                 .load(currentMovie.posterPath)

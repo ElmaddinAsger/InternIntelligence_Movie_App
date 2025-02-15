@@ -26,7 +26,6 @@ class SplashScreenFragment : Fragment() {
 
 
     private val categoryNameList = listOf("top_rated","popular","upcoming","now_playing")
-    private val token = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YjhhZGM4ZDA0YTA4ZTk4NjVlZDk2YjllOTc0ODYwYiIsIm5iZiI6MTczODM5MTMxMi42NzIsInN1YiI6IjY3OWRiZjEwMTc0MmI0NGExNGNiMzdmYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.OzKXsqf73IJ5E6nPx4vbRe4iVCXOEn_cSFlheccQkbE"
 
 
     override fun onCreateView(
@@ -41,7 +40,7 @@ class SplashScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         categoryNameList.forEach{ categoryName ->
-            getApiData(categoryNameList.indexOf(categoryName)+1,Retrofit.movieApi.getMovies(categoryName,token),categoryName)
+            getApiData(categoryNameList.indexOf(categoryName)+1,Retrofit.movieApi.getMovies(categoryName),categoryName)
         }
         getGenreList()
 
@@ -88,7 +87,7 @@ class SplashScreenFragment : Fragment() {
     }
 
     private fun getGenreList () {
-        val call = Retrofit.movieApi.getMovieGenreList(token)
+        val call = Retrofit.movieApi.getMovieGenreList()
         call.enqueue(object : Callback<Genres> {
             override fun onResponse(p0: Call<Genres>, response: Response<Genres>) {
                 if (response.isSuccessful){

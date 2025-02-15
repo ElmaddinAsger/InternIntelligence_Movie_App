@@ -45,7 +45,6 @@ class HomeFragment : Fragment() {
    private lateinit var sharedViewModel: SharedViewModel
    private lateinit var forGenreViewModel: ForGenreViewModel
 
-    private val token = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YjhhZGM4ZDA0YTA4ZTk4NjVlZDk2YjllOTc0ODYwYiIsIm5iZiI6MTczODM5MTMxMi42NzIsInN1YiI6IjY3OWRiZjEwMTc0MmI0NGExNGNiMzdmYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.OzKXsqf73IJ5E6nPx4vbRe4iVCXOEn_cSFlheccQkbE"
     private var currentGenreId = 0
     private lateinit var generalCategoryList: MutableList<CategoryModel>
     private val handler = Handler(Looper.getMainLooper())
@@ -67,10 +66,13 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
         movieSlideAdapter = MovieSlideAdapter()
-        categoryAdapter = CategoryAdapter(requireContext()){
+        categoryAdapter = CategoryAdapter(requireContext(),{
             val action = HomeFragmentDirections.actionHomeFragmentToMovieListFragment(it,currentGenreId)
             findNavController().navigate(action)
-        }
+        },{
+            val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailsFragment(it)
+            findNavController().navigate(action)
+        })
         return binding.root
         }
 
@@ -87,8 +89,8 @@ class HomeFragment : Fragment() {
                 getSlideAdapter(categoryList)
                 getCategoryAdapter(categoryList)
                 categoryList.forEach{ category ->
-                    getApiData(category,Retrofit.movieApi.getMovies(category.listName,token, page = 2))
-                    getApiData(category,Retrofit.movieApi.getMovies(category.listName,token, page = 3))
+                    getApiData(category,Retrofit.movieApi.getMovies(category.listName, page = 2))
+                    getApiData(category,Retrofit.movieApi.getMovies(category.listName, page = 3))
                 }
                 generalCategoryList = categoryList
                 getCategoryAdapter(categoryList)
