@@ -10,6 +10,8 @@ import com.elmaddinasger.movieapp.models.Genre
 import com.elmaddinasger.movieapp.models.Genres
 import com.elmaddinasger.movieapp.models.MovieDetailsModel
 import com.elmaddinasger.movieapp.models.MovieVideosModel
+import com.elmaddinasger.movieapp.models.OnlineCategoryModel
+import com.elmaddinasger.movieapp.models.ReviewsModel
 import com.elmaddinasger.movieapp.services.Retrofit
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,6 +29,8 @@ class MovieViewModel : ViewModel() {
         _selectedMovieId.value = movieId
         fetchMovieDetails(movieId)
         fetchMovieVideos(movieId)
+        fetchSimilarMovies(movieId)
+        fetchReviews(movieId)
     }
 
     private val _movieDetails = MutableStateFlow<MovieDetailsModel?>(null)
@@ -35,6 +39,11 @@ class MovieViewModel : ViewModel() {
     private val _movieVideos = MutableStateFlow<MovieVideosModel?>(null)
     val movieVideos: StateFlow<MovieVideosModel?> = _movieVideos
 
+    private val _similarMovies = MutableStateFlow<OnlineCategoryModel?>(null)
+    val similarMovies: StateFlow<OnlineCategoryModel?> = _similarMovies
+
+    private val _reviews = MutableStateFlow<ReviewsModel?>(null)
+    val reviews: StateFlow<ReviewsModel?> = _reviews
 
 
 
@@ -61,8 +70,40 @@ class MovieViewModel : ViewModel() {
                 val response = Retrofit.movieApi.getMovieVideos(movieId)
                 if (response.isSuccessful) {
                     val currentMovieVideos = response.body()
-                    Log.e("ViewModel", "Veri alındı: $movieVideos")
                     _movieVideos.value = currentMovieVideos
+                } else {
+                    Log.e("ViewModel", "API başarısız: ${response.errorBody()?.string()}")
+                }
+            } catch (e: Exception) {
+                Log.e("ViewModel", "Hata: ${e.message}")
+            }
+        }
+    }
+
+    fun fetchSimilarMovies( movieId: Int){
+        viewModelScope.launch {
+            try {
+                val response = Retrofit.movieApi.getSimilarMovies(movieId,"similar")
+                if (response.isSuccessful) {
+                    val currentSimilarMovies = response.body()
+                    _similarMovies.value = currentSimilarMovies
+                } else {
+                    Log.e("ViewModel", "API başarısız: ${response.errorBody()?.string()}")
+                }
+            } catch (e: Exception) {
+                Log.e("ViewModel", "Hata: ${e.message}")
+            }
+        }
+    }
+
+    fun fetchReviews( movieId: Int){
+        viewModelScope.launch {
+            try {
+                val response = Retrofit.movieApi.getReviews(movieId)
+                if (response.isSuccessful) {
+                    val currentReviews = response.body()
+                    Log.e("ViewModel", "Veri alındı: $currentReviews")
+                    _reviews.value = currentReviews
                 } else {
                     Log.e("ViewModel", "API başarısız: ${response.errorBody()?.string()}")
                 }

@@ -5,6 +5,7 @@ import com.elmaddinasger.movieapp.models.Genres
 import com.elmaddinasger.movieapp.models.MovieDetailsModel
 import com.elmaddinasger.movieapp.models.MovieVideosModel
 import com.elmaddinasger.movieapp.models.OnlineCategoryModel
+import com.elmaddinasger.movieapp.models.ReviewsModel
 import com.google.gson.internal.GsonBuildConfig
 import retrofit2.Call
 import retrofit2.Response
@@ -42,4 +43,19 @@ interface MovieApiService {
         @Header("Authorization") apiKey: String = BuildConfig.API_KEY,
         @Query("language") language: String = "en-US",
     ): Response<MovieVideosModel>
+
+    @GET("movie/{movieId}/{type}")
+    suspend fun getSimilarMovies (
+        @Path("movieId") movieId: Int,
+        @Path("type") type: String,
+        @Header("Authorization") apiKey: String = BuildConfig.API_KEY,
+        @Query("language") language: String = "en-US",
+    ): Response<OnlineCategoryModel>
+
+    @GET("movie/{movieId}/reviews")
+    suspend fun getReviews (
+        @Path("movieId") movieId: Int,
+        @Header("Authorization") apiKey: String = BuildConfig.API_KEY,
+        @Query("language") language: String = "en-US",
+    ): Response<ReviewsModel>
 }

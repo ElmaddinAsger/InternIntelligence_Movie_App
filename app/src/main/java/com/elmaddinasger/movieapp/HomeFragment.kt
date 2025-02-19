@@ -76,7 +76,7 @@ class HomeFragment : Fragment() {
             lifecycleScope.launch {
                 movieViewModel.movieDetails.collectLatest { movie ->
                     if (movie != null) {
-                        val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailsFragment(it)
+                        val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailsFragment()
                         findNavController().navigate(action)
                     }
                 }
@@ -90,6 +90,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         forGenreViewModel = ViewModelProvider(requireActivity())[ForGenreViewModel::class.java]

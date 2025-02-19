@@ -39,7 +39,7 @@ class MovieListFragment : Fragment() {
                 movieViewModel.movieDetails.collectLatest { movie ->
 
                     if (movie != null) {
-                        val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(it)
+                        val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment()
                         findNavController().navigate(action)
                     }
                 }

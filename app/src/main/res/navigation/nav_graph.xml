@@ -50,9 +50,8 @@
         android:name="com.elmaddinasger.movieapp.MovieDetailsFragment"
         android:label="fragment_movie_details"
         tools:layout="@layout/fragment_movie_details" >
-        <argument
-            android:name="movieId"
-            app:argType="integer"
-            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_self"
+            app:destination="@id/movieDetailsFragment" />
     </fragment>
 </navigation>
