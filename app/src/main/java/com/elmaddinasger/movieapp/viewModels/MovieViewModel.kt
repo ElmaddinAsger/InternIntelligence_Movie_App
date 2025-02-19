@@ -22,8 +22,8 @@ import retrofit2.Response
 
 class MovieViewModel : ViewModel() {
 
-    private val _selectedMovieId = MutableLiveData<Int>()
-    val selectedMovieId: LiveData<Int> = _selectedMovieId
+    private val _selectedMovieId = MutableLiveData<Int?>()
+    val selectedMovieId: LiveData<Int?> = _selectedMovieId
 
     fun selectMovie(movieId: Int) {
         _selectedMovieId.value = movieId
@@ -32,6 +32,7 @@ class MovieViewModel : ViewModel() {
         fetchSimilarMovies(movieId)
         fetchReviews(movieId)
     }
+
 
     private val _movieDetails = MutableStateFlow<MovieDetailsModel?>(null)
     val movieDetails: StateFlow<MovieDetailsModel?> = _movieDetails

@@ -66,23 +66,23 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater,container,false)
+        movieViewModel = ViewModelProvider(requireActivity())[MovieViewModel::class.java]
         movieSlideAdapter = MovieSlideAdapter()
         categoryAdapter = CategoryAdapter(requireContext(),{
             val action = HomeFragmentDirections.actionHomeFragmentToMovieListFragment(it,currentGenreId)
             findNavController().navigate(action)
         },{
-            movieViewModel = ViewModelProvider(requireActivity())[MovieViewModel::class.java]
             movieViewModel.selectMovie(it)
             lifecycleScope.launch {
                 movieViewModel.movieDetails.collectLatest { movie ->
                     if (movie != null) {
-                        val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailsFragment()
-                        findNavController().navigate(action)
+                        val navController = findNavController()
+                        if (navController.currentDestination?.id == R.id.homeFragment) {
+                            navController.navigate(R.id.action_homeFragment_to_movieDetailsFragment)
+                        }
                     }
                 }
             }
-
-
         })
         return binding.root
         }

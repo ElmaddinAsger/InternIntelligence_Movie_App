@@ -39,8 +39,10 @@ class MovieListFragment : Fragment() {
                 movieViewModel.movieDetails.collectLatest { movie ->
 
                     if (movie != null) {
-                        val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment()
-                        findNavController().navigate(action)
+                        val navController = findNavController()
+                        if (navController.currentDestination?.id == R.id.movieListFragment) {
+                            navController.navigate(R.id.action_movieListFragment_to_movieDetailsFragment)
+                        }
                     }
                 }
             }
