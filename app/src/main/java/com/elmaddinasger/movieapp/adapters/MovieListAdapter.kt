@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.elmaddinasger.movieapp.databinding.ItemMovieBinding
 import com.elmaddinasger.movieapp.models.MovieModel
 
-class MovieListAdapter: RecyclerView.Adapter<MovieListAdapter.MovieListViewHolder>() {
+class MovieListAdapter(val clickedMovie: (movieId: Int) -> Unit): RecyclerView.Adapter<MovieListAdapter.MovieListViewHolder>() {
 
     private val diffUtil = object : DiffUtil.ItemCallback<MovieModel>(){
         override fun areItemsTheSame(oldItem: MovieModel, newItem: MovieModel): Boolean {
@@ -43,6 +43,12 @@ class MovieListAdapter: RecyclerView.Adapter<MovieListAdapter.MovieListViewHolde
     }
 
     inner class MovieListViewHolder(val binding:ItemMovieBinding): RecyclerView.ViewHolder(binding.root){
+        init {
+            binding.root.setOnClickListener {
+                clickedMovie(asyncListDiffer.currentList[bindingAdapterPosition].movieId)
+            }
+        }
+
         fun bind (currentMovie: MovieModel) {
             binding.apply {
                 txtvwMovieName.text = currentMovie.title

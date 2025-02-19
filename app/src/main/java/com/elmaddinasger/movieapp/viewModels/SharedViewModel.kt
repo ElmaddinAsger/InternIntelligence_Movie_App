@@ -1,4 +1,4 @@
-package com.elmaddinasger.movieapp
+package com.elmaddinasger.movieapp.viewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -10,5 +10,4 @@ object Retrofit {
         .build()
 
     val movieApi = retrofit.create(MovieApiService::class.java)
-
 }

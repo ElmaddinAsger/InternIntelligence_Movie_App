@@ -1,16 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MovieDetailsFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MovieDetailsFragment"
+    android:background="@color/black">
+    <ImageView
+        android:id="@+id/img_movie"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintDimensionRatio="4:3"
+        app:layout_constraintTop_toTopOf="parent"/>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    app:layout_constraintDimensionRatio="4:2"
+    app:layout_constraintVertical_bias="1"
+    android:background="@drawable/gradient_overlay"
+    app:layout_constraintBottom_toBottomOf="@id/img_movie"
+    app:layout_constraintTop_toTopOf="@id/img_movie"/>
     <TextView
         android:id="@+id/txtvw_movie_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="50sp"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/txtvw_movie_property"
+        android:textAlignment="center"
+        android:textSize="30sp"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/txtvw_movie_property"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@id/img_movie"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_play"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Play"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:background="@drawable/active_button"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="5dp"
+        app:layout_constraintEnd_toStartOf="@id/btn_download"
+        app:layout_constraintTop_toBottomOf="@id/img_movie"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_download"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:text="Download"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:background="@drawable/inactive_button"
+        app:layout_constraintTop_toTopOf="@id/btn_play"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_play"/>
+    <TextView
+        android:id="@+id/txtvw_movie_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20sp"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/btn_play" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_episode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Episode"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+        android:background="@drawable/inactive_movie_details_buttons"
+        app:layout_constraintTop_toBottomOf="@id/txtvw_movie_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_similiar"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_similiar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Similiar"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+        android:background="@drawable/inactive_movie_details_buttons"
+        app:layout_constraintTop_toBottomOf="@id/txtvw_movie_info"
+        app:layout_constraintStart_toEndOf="@id/btn_episode"
+        app:layout_constraintEnd_toStartOf="@id/btn_about"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_about"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="About"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+        android:background="@drawable/inactive_movie_details_buttons"
+        app:layout_constraintTop_toBottomOf="@id/txtvw_movie_info"
+        app:layout_constraintStart_toEndOf="@id/btn_similiar"
+        app:layout_constraintEnd_toEndOf="parent"/>
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rv_video_similiar_about"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_marginTop="10dp"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layout_constraintTop_toBottomOf="@id/btn_similiar"
+    app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

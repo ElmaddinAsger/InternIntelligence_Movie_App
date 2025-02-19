@@ -16,6 +16,7 @@ import com.elmaddinasger.movieapp.models.Genres
 import com.elmaddinasger.movieapp.models.MovieModel
 import com.elmaddinasger.movieapp.models.OnlineCategoryModel
 import com.elmaddinasger.movieapp.services.Retrofit
+import com.elmaddinasger.movieapp.viewModels.SharedViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -63,4 +63,5 @@ dependencies {
     implementation(libs.squareup.retrofit.gson)
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.android.youtubeplayer)
 }

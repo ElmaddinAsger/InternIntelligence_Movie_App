@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -20,18 +21,17 @@ import com.elmaddinasger.movieapp.adapters.CategoryAdapter
 import com.elmaddinasger.movieapp.adapters.GenreAdapter
 import com.elmaddinasger.movieapp.adapters.MovieSlideAdapter
 import com.elmaddinasger.movieapp.databinding.FragmentHomeBinding
-import com.elmaddinasger.movieapp.databinding.FragmentSplashScreenBinding
-import com.elmaddinasger.movieapp.dto.toMovieList
 import com.elmaddinasger.movieapp.dto.toMovieModel
 import com.elmaddinasger.movieapp.models.CategoryModel
 import com.elmaddinasger.movieapp.models.Genre
 import com.elmaddinasger.movieapp.models.MovieModel
 import com.elmaddinasger.movieapp.models.OnlineCategoryModel
 import com.elmaddinasger.movieapp.services.Retrofit
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.elmaddinasger.movieapp.viewModels.ForGenreViewModel
+import com.elmaddinasger.movieapp.viewModels.MovieViewModel
+import com.elmaddinasger.movieapp.viewModels.SharedViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,6 +44,7 @@ class HomeFragment : Fragment() {
    private lateinit var categoryAdapter: CategoryAdapter
    private lateinit var sharedViewModel: SharedViewModel
    private lateinit var forGenreViewModel: ForGenreViewModel
+   private lateinit var movieViewModel: MovieViewModel
 
     private var currentGenreId = 0
     private lateinit var generalCategoryList: MutableList<CategoryModel>
@@ -70,8 +71,18 @@ class HomeFragment : Fragment() {
             val action = HomeFragmentDirections.actionHomeFragmentToMovieListFragment(it,currentGenreId)
             findNavController().navigate(action)
         },{
-            val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailsFragment(it)
-            findNavController().navigate(action)
+            movieViewModel = ViewModelProvider(requireActivity())[MovieViewModel::class.java]
+            movieViewModel.selectMovie(it)
+            lifecycleScope.launch {
+                movieViewModel.movieDetails.collectLatest { movie ->
+                    if (movie != null) {
+                        val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailsFragment(it)
+                        findNavController().navigate(action)
+                    }
+                }
+            }
+
+
         })
         return binding.root
         }
@@ -111,6 +122,8 @@ class HomeFragment : Fragment() {
         handler.removeCallbacks(sliderRunnable) // For Memory leak
     }
 
+
+
     private fun  getSlideAdapter ( categoryList: MutableList<CategoryModel>) {
         val currentCategoryList = mutableListOf<MovieModel>()
         for (index in 0 ..6) {
@@ -146,7 +159,6 @@ class HomeFragment : Fragment() {
         categoryAdapter.setList(currentCategoryList)
         binding.rvCategory.adapter = categoryAdapter
     }
-
 
     private fun getGenreRv (genreList: List<Genre>){
         genreAdapter = GenreAdapter(genreList){genreId ->

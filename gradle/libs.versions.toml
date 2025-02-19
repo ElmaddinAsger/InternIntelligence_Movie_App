@@ -17,6 +17,7 @@ glide_version = "4.16.0"
 retrofit_version = "2.11.0"
 room_version = "2.6.1"
 ksp = "1.9.24-1.0.20"
+youtubeplayer_version = "12.1.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -36,6 +37,7 @@ squareup-retrofit = {group = "com.squareup.retrofit2", name = "retrofit", versio
 squareup-retrofit-gson = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit_version"}
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
+android-youtubeplayer = {group = "com.pierfrancescosoffritti.androidyoutubeplayer", name = "core", version.ref = "youtubeplayer_version"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
