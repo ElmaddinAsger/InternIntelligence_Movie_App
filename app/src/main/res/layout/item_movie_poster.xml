@@ -19,7 +19,7 @@
             android:maxHeight="540dp"
             android:maxWidth="360dp"
             app:layout_constraintDimensionRatio="2:3"
-            android:contentDescription="Movie Name"
+            android:contentDescription="@string/movie_name"
             android:scaleType="fitXY"
             app:circularflow_defaultRadius="20dp"
             app:layout_constraintStart_toStartOf="parent"
