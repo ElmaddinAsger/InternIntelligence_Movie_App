@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/menu"
             android:padding="20dp"
-            android:contentDescription="menu"
+            android:contentDescription="@string/menu"
             android:background="#00000000"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline"

@@ -49,24 +49,23 @@ class MovieViewModel : ViewModel() {
 
 
 
-    fun fetchMovieDetails(movieId: Int) {
+    private fun fetchMovieDetails(movieId: Int) {
         viewModelScope.launch {
             try {
                 val response = Retrofit.movieApi.getMovieDetails(movieId)
                 if (response.isSuccessful) {
                     val movie = response.body()
-                    Log.e("ViewModel", "Veri alındı: $movie")
                     _movieDetails.value = movie
                 } else {
-                    Log.e("ViewModel", "API başarısız: ${response.errorBody()?.string()}")
+                    Log.e("ViewModel", "API unsuccessful: ${response.errorBody()?.string()}")
                 }
             } catch (e: Exception) {
-                Log.e("ViewModel", "Hata: ${e.message}")
+                Log.e("ViewModel", "Error: ${e.message}")
             }
         }
     }
 
-    fun fetchMovieVideos( movieId: Int){
+    private fun fetchMovieVideos( movieId: Int){
         viewModelScope.launch {
             try {
                 val response = Retrofit.movieApi.getMovieVideos(movieId)
@@ -74,15 +73,15 @@ class MovieViewModel : ViewModel() {
                     val currentMovieVideos = response.body()
                     _movieVideos.value = currentMovieVideos
                 } else {
-                    Log.e("ViewModel", "API başarısız: ${response.errorBody()?.string()}")
+                    Log.e("ViewModel", "API unsuccessful: ${response.errorBody()?.string()}")
                 }
             } catch (e: Exception) {
-                Log.e("ViewModel", "Hata: ${e.message}")
+                Log.e("ViewModel", "Error: ${e.message}")
             }
         }
     }
 
-    fun fetchSimilarMovies( movieId: Int){
+    private fun fetchSimilarMovies( movieId: Int){
         viewModelScope.launch {
             try {
                 val response = Retrofit.movieApi.getSimilarMovies(movieId,"similar")
@@ -90,15 +89,15 @@ class MovieViewModel : ViewModel() {
                     val currentSimilarMovies = response.body()
                     _similarMovies.value = currentSimilarMovies
                 } else {
-                    Log.e("ViewModel", "API başarısız: ${response.errorBody()?.string()}")
+                    Log.e("ViewModel", "API unsuccessful: ${response.errorBody()?.string()}")
                 }
             } catch (e: Exception) {
-                Log.e("ViewModel", "Hata: ${e.message}")
+                Log.e("ViewModel", "Error: ${e.message}")
             }
         }
     }
 
-    fun fetchReviews( movieId: Int){
+    private fun fetchReviews( movieId: Int){
         viewModelScope.launch {
             try {
                 val response = Retrofit.movieApi.getReviews(movieId)
@@ -106,10 +105,10 @@ class MovieViewModel : ViewModel() {
                     val currentReviews = response.body()
                     _reviews.value = currentReviews
                 } else {
-                    Log.e("ViewModel", "API başarısız: ${response.errorBody()?.string()}")
+                    Log.e("ViewModel", "API unsuccessful: ${response.errorBody()?.string()}")
                 }
             } catch (e: Exception) {
-                Log.e("ViewModel", "Hata: ${e.message}")
+                Log.e("ViewModel", "Error: ${e.message}")
             }
         }
     }
@@ -119,12 +118,11 @@ class MovieViewModel : ViewModel() {
             try {
                 val response = Retrofit.movieApi.rateMovie(movieId, rating = RatingRequest(rating))
                 if (response.isSuccessful) {
-                    Log.e("RateMovie", "Puan gönderildi: $rating")
                 } else {
-                    Log.e("RateMovie", "Başarısız: ${response.errorBody()?.string()}")
+                    Log.e("RateMovie", "Unsuccessful: ${response.errorBody()?.string()}")
                 }
             } catch (e: Exception) {
-                Log.e("RateMovie", "Hata: ${e.message}")
+                Log.e("RateMovie", "Error: ${e.message}")
             }
         }
     }
