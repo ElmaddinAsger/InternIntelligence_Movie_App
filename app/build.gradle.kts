@@ -64,4 +64,5 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     implementation(libs.android.youtubeplayer)
+    implementation(libs.squareup.moshi)
 }

@@ -72,6 +72,10 @@ class MovieDetailsFragment : Fragment() {
             getReviews()
         }
 
+        binding.btnPlay.setOnClickListener {
+            movieViewModel.rateMovie(238,7.5)
+        }
+
 
 
     }
